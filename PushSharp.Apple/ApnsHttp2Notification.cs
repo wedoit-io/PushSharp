@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace PushSharp.Apple
 {
     public class ApnsHttp2Notification : INotification
-    {                
+    {
         /// <summary>
         /// Store whatever associated information you'd like here
         /// </summary>
@@ -20,6 +20,12 @@ namespace PushSharp.Apple
         /// </summary>
         /// <value>The UUID.</value>
         public string Uuid { get; set; }
+
+        /// <summary>
+        /// apns-push-type
+        /// </summary>
+        /// <value>background or alert</value>
+        public string PushType { get; set; }
 
         /// <summary>
         /// Device Token to send notifications to
@@ -71,7 +77,7 @@ namespace PushSharp.Apple
 
         public override string ToString ()
         {
-            try { 
+            try {
                 if (Payload != null)
                     return Payload.ToString ();
             } catch {

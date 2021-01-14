@@ -47,10 +47,10 @@ namespace PushSharp.Apple
 
             var http2Settings = new HttpTwo.Http2ConnectionSettings (
                 Configuration.Host,
-               (uint)Configuration.Port, 
-                true, 
+               (uint)Configuration.Port,
+                true,
                 certificates);
-            
+
             http2 = new HttpTwo.Http2Client (http2Settings);
         }
 
@@ -63,10 +63,10 @@ namespace PushSharp.Apple
 
         public async Task Send (ApnsHttp2Notification notification)
         {
-            var url = string.Format ("https://{0}:{1}/3/device/{2}", 
+            var url = string.Format ("https://{0}:{1}/3/device/{2}",
                           Configuration.Host,
                           Configuration.Port,
-                          notification.DeviceToken);            
+                          notification.DeviceToken);
             var uri = new Uri (url);
 
             var payload = notification.Payload.ToString ();
@@ -75,6 +75,12 @@ namespace PushSharp.Apple
 
             var headers = new NameValueCollection ();
             headers.Add ("apns-id", notification.Uuid); // UUID
+
+            if ((string.IsNullOrEmpty(notification.PushType)))
+            {
+                notification.PushType = "background";
+            }
+            headers.Add("apns-push-type", notification.PushType);
 
             if (notification.Expiration.HasValue) {
                 var sinceEpoch = notification.Expiration.Value.ToUniversalTime () - new DateTime (1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
@@ -87,11 +93,11 @@ namespace PushSharp.Apple
 
             headers.Add ("content-length", data.Length.ToString ());
 
-            if (!string.IsNullOrEmpty (notification.Topic)) 
+            if (!string.IsNullOrEmpty (notification.Topic))
                 headers.Add ("apns-topic", notification.Topic); // string topic
 
             var response = await http2.Post (uri, headers, data);
-            
+
             if (response.Status == HttpStatusCode.OK) {
                 // Check for matching uuid's
                 var responseUuid = response.Headers ["apns-id"];
@@ -115,7 +121,8 @@ namespace PushSharp.Apple
                     }
 
                     // Expired
-                    throw new PushSharp.Core.DeviceSubscriptonExpiredException {
+                    throw new PushSharp.Core.DeviceSubscriptionExpiredException(notification)
+                    {
                         OldSubscriptionId = notification.DeviceToken,
                         NewSubscriptionId = null,
                         ExpiredAt = timestamp
@@ -125,9 +132,9 @@ namespace PushSharp.Apple
                 // Get the reason
                 var reasonStr = json.Value<string> ("reason");
 
-                var reason = (ApnsHttp2FailureReason)Enum.Parse (typeof (ApnsHttp2FailureReason), reasonStr, true);
+                //var reason = (ApnsHttp2FailureReason)Enum.Parse (typeof (ApnsHttp2FailureReason), reasonStr, true);
 
-                throw new ApnsHttp2NotificationException (reason, notification);
+                throw new Exception("Http2: " + reasonStr);
             }
         }
     }
