@@ -46,73 +46,15 @@ namespace TestApplication
             brokerAndroid.Stop();
         }
 
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            var succeeded = 0;
-            var failed = 0;
-
-            System.Security.Cryptography.X509Certificates.X509Certificate2 v_XC = null;
-            var debug = debugComboBox.Text.Equals("true");
-            var voip = pushTypeComboBox.Text.Equals("voip");
-
-            var cert = certComboBox.Text;
-
-            v_XC = new System.Security.Cryptography.X509Certificates.X509Certificate2(
-                System.IO.File.ReadAllBytes(cert), "",
-                System.Security.Cryptography.X509Certificates.X509KeyStorageFlags.MachineKeySet);
-
-            var config2 = new ApnsHttp2Configuration(
-                debug
-                    ? ApnsHttp2Configuration.ApnsServerEnvironment.Sandbox
-                    : ApnsHttp2Configuration.ApnsServerEnvironment.Production, v_XC);
-
-            var broker = new ApnsHttp2ServiceBroker(config2);
-            broker.OnNotificationFailed += (notification, exception) =>
-            {
-                //Http2: BadDeviceToken
-                // Chiamata a SSPI non riuscita. Vedere l'eccezione interna. - Il certificato ricevuto è scaduto
-                // Http2: InvalidPushType => verificare se sandbox o prod
-
-                WriteResult(exception?.InnerException?.Message);
-                failed++;
-            };
-            broker.OnNotificationSucceeded += (notification) =>
-            {
-                WriteResultAndroid($"OK id:{notification.Payload}");
-                succeeded++;
-            };
-            broker.Start();
-
-            //https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns
-            /*If you set this push type, the apns-topic header field must use your app’s bundle ID with .voip appended to the end*/
-            var bundleId = bundleIdComboBox.Text.Trim();
-            var topic = voip ? $"{bundleId}.voip" : bundleId;
-
-            broker.QueueNotification(new ApnsHttp2Notification
-            {
-                DeviceToken = deviceTokenTextBox.Text.Trim(),
-                Payload = JObject.Parse("{ \"aps\" : { \"alert\" : \"test http2\" } }"),
-                Topic = topic,
-                PushType = voip ? "voip" : "alert"
-
-            });
-
-
-            broker.Stop();
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            var succeeded = 0;
-            var failed = 0;
             System.Security.Cryptography.X509Certificates.X509Certificate2 v_XC = null;
             var debug = debugComboBox.Text.Equals("true");
 
             var cert = certComboBox.Text;
 
             v_XC = new System.Security.Cryptography.X509Certificates.X509Certificate2(
-                System.IO.File.ReadAllBytes(cert), "",
+                File.ReadAllBytes(cert), "",
                 System.Security.Cryptography.X509Certificates.X509KeyStorageFlags.MachineKeySet);
 
             var config = new PushSharp.Apple.ApnsConfiguration(
@@ -127,11 +69,11 @@ namespace TestApplication
 
                 // Http2: InvalidPushType => verificare se sandbox o prod
                 var error = exception?.InnerException?.Message;
-                failed++;
+
             };
             broker.OnNotificationSucceeded += (notification) =>
             {
-                succeeded++;
+
             };
             broker.Start();
 
@@ -242,7 +184,7 @@ namespace TestApplication
                 WriteResultAndroid(exception?.InnerException?.Message);
             };
             brokerAndroid.OnNotificationSucceeded += (notification) => {
-                WriteResultAndroid($"OK id:{notification.MessageId}");
+                WriteResultAndroid($"OK");
             };
 
             brokerAndroid.Start();
@@ -251,7 +193,7 @@ namespace TestApplication
             androidProgressBar.Style = ProgressBarStyle.Marquee;
             androidProgressBar.MarqueeAnimationSpeed = 30;
             stopPushAndroid = false;
-            while (stopPush)
+            while (stopPushAndroid)
             {
                 Thread.Sleep(1000);
             }
