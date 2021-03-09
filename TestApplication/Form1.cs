@@ -48,6 +48,7 @@ namespace TestApplication
 
         private void button3_Click(object sender, EventArgs e)
         {
+            // Vecchia versione di invio per IOS
             System.Security.Cryptography.X509Certificates.X509Certificate2 v_XC = null;
             var debug = debugComboBox.Text.Equals("true");
 
@@ -115,6 +116,9 @@ namespace TestApplication
                 System.IO.File.ReadAllBytes(cert), "",
                 System.Security.Cryptography.X509Certificates.X509KeyStorageFlags.MachineKeySet);
 
+
+            expireLabel.Text = $"Expire on {v_XC.NotAfter.ToShortDateString()}";
+
             var config2 = new ApnsHttp2Configuration(
                 debug
                     ? ApnsHttp2Configuration.ApnsServerEnvironment.Sandbox
@@ -145,6 +149,8 @@ namespace TestApplication
             //Http2: BadDeviceToken
             // Chiamata a SSPI non riuscita. Vedere l'eccezione interna. - Il certificato ricevuto è scaduto
             // Http2: InvalidPushType => verificare se sandbox o prod
+            // Http2: BadExpirationDate la proprietà Expiration settata sul ApnsHttp2Notification non è valida
+            // Http2: DeviceTokenNotForTopic
 
             WriteResult(exception?.InnerException?.Message);
         }
@@ -155,6 +161,7 @@ namespace TestApplication
             stopPush = true;
             progressBar1.Style = ProgressBarStyle.Continuous;
             progressBar1.MarqueeAnimationSpeed = 0;
+            expireLabel.Text = "";
             brokerIos.Stop();
         }
 
@@ -171,7 +178,8 @@ namespace TestApplication
                 DeviceToken = deviceTokenTextBox.Text.Trim(),
                 Payload = JObject.Parse("{ \"aps\" : { \"alert\" : \"" + messageTextBox.Text + "\" } }"),
                 Topic = topic,
-                PushType = voip ? "voip" : "alert"
+                PushType = voip ? "voip" : "alert",
+                //Expiration = DateTime.Now.AddDays(1),
             });
         }
 

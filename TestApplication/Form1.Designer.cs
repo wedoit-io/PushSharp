@@ -62,6 +62,7 @@ namespace TestApplication
             this.regIdTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.senderAuthTokenTextBox = new System.Windows.Forms.TextBox();
+            this.expireLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -117,6 +118,7 @@ namespace TestApplication
             this.deviceTokenTextBox.Name = "deviceTokenTextBox";
             this.deviceTokenTextBox.Size = new System.Drawing.Size(575, 20);
             this.deviceTokenTextBox.TabIndex = 5;
+            this.deviceTokenTextBox.Text = "95c467689afe22e2399620f735f2a108812e50640f3b6164280c782c22fb1dee";
             // 
             // label1
             // 
@@ -184,7 +186,8 @@ namespace TestApplication
             this.bundleIdComboBox.FormattingEnabled = true;
             this.bundleIdComboBox.Items.AddRange(new object[] {
             "it.nethesis.nethcti3",
-            "APX.Attendance"});
+            "APX.Attendance",
+            "it.unibocconi.YouAtB"});
             this.bundleIdComboBox.Location = new System.Drawing.Point(304, 86);
             this.bundleIdComboBox.Name = "bundleIdComboBox";
             this.bundleIdComboBox.Size = new System.Drawing.Size(279, 21);
@@ -212,6 +215,7 @@ namespace TestApplication
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.expireLabel);
             this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.Add);
             this.tabPage1.Controls.Add(this.stopButton);
@@ -405,6 +409,15 @@ namespace TestApplication
             this.senderAuthTokenTextBox.Size = new System.Drawing.Size(565, 38);
             this.senderAuthTokenTextBox.TabIndex = 1;
             // 
+            // expireLabel
+            // 
+            this.expireLabel.AutoSize = true;
+            this.expireLabel.Location = new System.Drawing.Point(451, 16);
+            this.expireLabel.Name = "expireLabel";
+            this.expireLabel.Size = new System.Drawing.Size(10, 13);
+            this.expireLabel.TabIndex = 20;
+            this.expireLabel.Text = "-";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -458,6 +471,7 @@ namespace TestApplication
         private System.Windows.Forms.Button stopAndroidButton;
         private System.Windows.Forms.Button startAndroidButton;
         private System.Windows.Forms.TextBox resultAndroidTextBox;
+        private System.Windows.Forms.Label expireLabel;
     }
 }
 
