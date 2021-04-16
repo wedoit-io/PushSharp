@@ -32,11 +32,9 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HttpTwo, Version=1.0.5858.36836, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HttpTwo.0.0.1.19\lib\net45\HttpTwo.dll</HintPath>
-    </Reference>
-    <Reference Include="HttpTwo.HPack, Version=1.0.5858.36836, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HttpTwo.0.0.1.19\lib\net45\HttpTwo.HPack.dll</HintPath>
+    <Reference Include="hpack, Version=1.0.2.29220, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\HttpTwo\libs\hpack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="Newtonsoft.Json">
@@ -59,6 +57,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\HttpTwo\HttpTwo\HttpTwo\HttpTwo.csproj">
+      <Project>{dc2f25d9-75be-4c67-b41d-84b738a16b9f}</Project>
+      <Name>HttpTwo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PushSharp.Core\PushSharp.Core.csproj">
       <Project>{2B44A8DA-60BC-4577-A2D7-D9D53F164B2E}</Project>
       <Name>PushSharp.Core</Name>

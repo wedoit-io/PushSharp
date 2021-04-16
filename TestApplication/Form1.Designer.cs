@@ -45,6 +45,11 @@ namespace TestApplication
             this.label5 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.countLabel = new System.Windows.Forms.Label();
+            this.expireLabel = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.Add = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
@@ -62,7 +67,6 @@ namespace TestApplication
             this.regIdTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.senderAuthTokenTextBox = new System.Windows.Forms.TextBox();
-            this.expireLabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -80,11 +84,11 @@ namespace TestApplication
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(517, 254);
+            this.button3.Location = new System.Drawing.Point(399, 242);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
-            this.button3.Text = "ios old";
+            this.button3.Text = "add queue old";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -92,13 +96,13 @@ namespace TestApplication
             // 
             this.debugComboBox.FormattingEnabled = true;
             this.debugComboBox.Items.AddRange(new object[] {
-            "yes",
-            "no"});
+            "no",
+            "yes"});
             this.debugComboBox.Location = new System.Drawing.Point(150, 89);
             this.debugComboBox.Name = "debugComboBox";
             this.debugComboBox.Size = new System.Drawing.Size(121, 21);
             this.debugComboBox.TabIndex = 3;
-            this.debugComboBox.Text = "true";
+            this.debugComboBox.Text = "no";
             // 
             // pushTypeComboBox
             // 
@@ -110,7 +114,7 @@ namespace TestApplication
             this.pushTypeComboBox.Name = "pushTypeComboBox";
             this.pushTypeComboBox.Size = new System.Drawing.Size(121, 21);
             this.pushTypeComboBox.TabIndex = 4;
-            this.pushTypeComboBox.Text = "alert";
+            this.pushTypeComboBox.Text = "voip";
             // 
             // deviceTokenTextBox
             // 
@@ -118,7 +122,7 @@ namespace TestApplication
             this.deviceTokenTextBox.Name = "deviceTokenTextBox";
             this.deviceTokenTextBox.Size = new System.Drawing.Size(575, 20);
             this.deviceTokenTextBox.TabIndex = 5;
-            this.deviceTokenTextBox.Text = "95c467689afe22e2399620f735f2a108812e50640f3b6164280c782c22fb1dee";
+            this.deviceTokenTextBox.Text = "013B7670982CFE3D7DA2900A9B8AE2AD7A193210E606DB7E55566ECE15CC5237";
             // 
             // label1
             // 
@@ -152,6 +156,7 @@ namespace TestApplication
             this.resultTextBoxt.Location = new System.Drawing.Point(11, 283);
             this.resultTextBoxt.Multiline = true;
             this.resultTextBoxt.Name = "resultTextBoxt";
+            this.resultTextBoxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.resultTextBoxt.Size = new System.Drawing.Size(572, 134);
             this.resultTextBoxt.TabIndex = 9;
             // 
@@ -192,6 +197,7 @@ namespace TestApplication
             this.bundleIdComboBox.Name = "bundleIdComboBox";
             this.bundleIdComboBox.Size = new System.Drawing.Size(279, 21);
             this.bundleIdComboBox.TabIndex = 13;
+            this.bundleIdComboBox.Text = "it.nethesis.nethcti3";
             // 
             // label5
             // 
@@ -215,6 +221,10 @@ namespace TestApplication
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button5);
+            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.countLabel);
             this.tabPage1.Controls.Add(this.expireLabel);
             this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.Add);
@@ -242,17 +252,65 @@ namespace TestApplication
             this.tabPage1.Text = "iOS";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(575, 184);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(48, 23);
+            this.button5.TabIndex = 24;
+            this.button5.Text = "test";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(494, 242);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 23;
+            this.button4.Text = "Stop old";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(304, 242);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 22;
+            this.button2.Text = "Start Old ";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // countLabel
+            // 
+            this.countLabel.AutoSize = true;
+            this.countLabel.Location = new System.Drawing.Point(8, 264);
+            this.countLabel.Name = "countLabel";
+            this.countLabel.Size = new System.Drawing.Size(65, 13);
+            this.countLabel.TabIndex = 21;
+            this.countLabel.Text = "Inviate: 0/0 ";
+            // 
+            // expireLabel
+            // 
+            this.expireLabel.AutoSize = true;
+            this.expireLabel.Location = new System.Drawing.Point(451, 16);
+            this.expireLabel.Name = "expireLabel";
+            this.expireLabel.Size = new System.Drawing.Size(10, 13);
+            this.expireLabel.TabIndex = 20;
+            this.expireLabel.Text = "-";
+            // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(411, 193);
+            this.progressBar1.Location = new System.Drawing.Point(304, 184);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.Size = new System.Drawing.Size(265, 23);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar1.TabIndex = 19;
             // 
             // Add
             // 
-            this.Add.Location = new System.Drawing.Point(330, 228);
+            this.Add.Location = new System.Drawing.Point(399, 213);
             this.Add.Name = "Add";
             this.Add.Size = new System.Drawing.Size(75, 23);
             this.Add.TabIndex = 18;
@@ -262,7 +320,7 @@ namespace TestApplication
             // 
             // stopButton
             // 
-            this.stopButton.Location = new System.Drawing.Point(517, 195);
+            this.stopButton.Location = new System.Drawing.Point(494, 213);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(75, 23);
             this.stopButton.TabIndex = 17;
@@ -272,7 +330,7 @@ namespace TestApplication
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(330, 193);
+            this.startButton.Location = new System.Drawing.Point(303, 213);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 16;
@@ -409,15 +467,6 @@ namespace TestApplication
             this.senderAuthTokenTextBox.Size = new System.Drawing.Size(565, 38);
             this.senderAuthTokenTextBox.TabIndex = 1;
             // 
-            // expireLabel
-            // 
-            this.expireLabel.AutoSize = true;
-            this.expireLabel.Location = new System.Drawing.Point(451, 16);
-            this.expireLabel.Name = "expireLabel";
-            this.expireLabel.Size = new System.Drawing.Size(10, 13);
-            this.expireLabel.TabIndex = 20;
-            this.expireLabel.Text = "-";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -472,6 +521,10 @@ namespace TestApplication
         private System.Windows.Forms.Button startAndroidButton;
         private System.Windows.Forms.TextBox resultAndroidTextBox;
         private System.Windows.Forms.Label expireLabel;
+        private System.Windows.Forms.Label countLabel;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button5;
     }
 }
 
